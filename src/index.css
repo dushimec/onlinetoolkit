@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add custom global styles here */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f3f4f6; /* Light gray background for better contrast */
+}
+
+h1, h2, h3 {
+  color: #134e5e; /* Primary dark green */
+}
+
+a {
+  color: #71b280; /* Primary light green */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
