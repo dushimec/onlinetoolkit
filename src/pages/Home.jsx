@@ -8,7 +8,21 @@ function Home() {
 
   useEffect(() => {
     // Fetch tools and analytics data
-    axios.get('/api/tools').then((response) => setTools(response.data));
+    axios.get('/api/tools')
+      .then((response) => {
+        console.log('Tools data:', response.data); // Debug log
+        // Handle if response.data is an object with a "tools" array or a direct array
+        const toolList = Array.isArray(response.data)
+          ? response.data
+          : response.data?.tools || [];
+
+        setTools(toolList);
+      })
+      .catch((error) => {
+        console.error('Error fetching tools:', error);
+        setTools([]); // fallback to empty array on error
+      });
+
     axios.post('/api/analytics', { page: 'Home' });
   }, []);
 
@@ -19,7 +33,9 @@ function Home() {
 
   return (
     <div className="container mx-auto py-10">
-      <h2 className="text-4xl font-bold text-center mb-6 text-primary">Welcome to OnlineToolkit.io</h2>
+      <h2 className="text-4xl font-bold text-center mb-6 text-primary">
+        Welcome to OnlineToolkit.io
+      </h2>
       <p className="text-center text-lg text-gray-700">
         OnlineToolkit.io is a comprehensive suite of online developer tools designed to streamline everyday tasks for developers. From JSON formatters and UUID generators to QR code creation and file conversions (PNG to PDF, PDF to PNG), this platform offers all-in-one solutions to optimize workflows. Built using React and Tailwind CSS, the toolkit is available in both dark and light modes for a better user experience. Powered by Node.js with microservices architecture, it offers high scalability, fast performance, and integration with advanced features like search filtering, pagination, and real-time analytics. Optimized for SEO, OnlineToolkit.io offers free, reliable, and easy-to-use utilities for all your development needs, including tools for JWT decoding, password generation, and more. Start using OnlineToolkit.io today to boost your productivity!
       </p>
